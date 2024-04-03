@@ -13,6 +13,7 @@ import { useGetCurrentAccount } from "@/ui/states/walletState";
 import cn from "classnames";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { COIN_SYMBOL } from "@/shared/constant";
 
 const TransactionList = () => {
   const { lastBlock, transactions, loadMoreTransactions } =
@@ -74,7 +75,7 @@ const TransactionList = () => {
             })}
           >
             {isIncomeTx(t, currentAccount.address) ? "+ " : "- "}
-            {getTransactionValue(t, currentAccount.address)} BEL
+            {getTransactionValue(t, currentAccount.address)} {COIN_SYMBOL}
           </div>
         </Link>
       ))}

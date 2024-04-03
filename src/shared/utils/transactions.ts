@@ -2,6 +2,7 @@ import type { ITransaction } from "@/shared/interfaces/api";
 import { payments } from "belcoinjs-lib";
 import Big from "big.js";
 import { AddressType } from "@/shared/constant";
+import { getNetwork } from "@/shared/interfaces/networks";
 
 export enum TxDirection {
   out = 0,
@@ -85,13 +86,20 @@ export const getScriptForAddress = (
 ) => {
   switch (addressType) {
     case AddressType.P2WPKH:
-      return payments.p2wpkh({ pubkey: Buffer.from(publicKey) }).output;
+      return payments.p2wpkh({
+        pubkey: Buffer.from(publicKey),
+        network: getNetwork(),
+      }).output;
     case AddressType.P2SH_P2WPKH:
       return payments.p2sh({
         redeem: payments.p2wpkh({ pubkey: Buffer.from(publicKey) }),
+        network: getNetwork(),
       }).output;
     case AddressType.P2PKH as any:
-      return payments.p2pkh({ pubkey: Buffer.from(publicKey) }).output;
+      return payments.p2pkh({
+        pubkey: Buffer.from(publicKey),
+        network: getNetwork(),
+      }).output;
     default:
       throw new Error("Invalid AddressType");
   }

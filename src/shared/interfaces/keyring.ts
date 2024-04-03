@@ -1,4 +1,4 @@
-import type bitcoin from "belcoinjs-lib";
+import { Psbt } from "belcoinjs-lib";
 import type { ECPairInterface } from "belpair";
 
 interface DeserializeOption {
@@ -35,14 +35,14 @@ export interface Keyring {
   getAccounts(): Promise<string[]>;
   getIndexByAddress(address: string): number;
   signTransaction(
-    psbt: bitcoin.Psbt,
+    psbt: Psbt,
     inputs: {
       index: number;
       publicKey: string;
       sighashTypes?: number[];
     }[],
     opts?: any
-  ): Promise<bitcoin.Psbt>;
+  ): Promise<Psbt>;
   signMessage(publicKey: string, text: string): Promise<any>;
   verifyMessage(publicKey: string, text: string, sig: string): Promise<any>;
   exportAccount(publicKey: string): Promise<string>;

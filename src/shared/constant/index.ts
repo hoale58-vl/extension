@@ -57,7 +57,7 @@ export const EVENTS = {
 };
 
 export const COIN_NAME = process.env.COIN_NAME ?? "BELL";
-export const COIN_SYMBOL = COIN_NAME;
+export const COIN_SYMBOL = process.env.COIN_SYMBOL ?? "BEL";
 
 export const SATS_DOMAIN = ".sats";
 

@@ -13,6 +13,7 @@ import { t } from "i18next";
 import cn from "classnames";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useRef } from "react";
+import { COIN_SYMBOL } from "@/shared/constant";
 
 const AccountPanel = () => {
   const currentWallet = useGetCurrentWallet();
@@ -72,7 +73,7 @@ const AccountPanel = () => {
                       : 8
                   )
                 )}
-                <span className="text-xl pb-0.5 text-slate-300">BEL</span>
+                <span className="text-xl pb-0.5 text-slate-300">{COIN_SYMBOL}</span>
               </div>
             </div>
             {currentAccount?.balance !== undefined ? (
@@ -98,11 +99,11 @@ const AccountPanel = () => {
               >
                 <p>
                   {`${t("wallet_page.amount_in_transactions")}: `}
-                  {`${currentAccount.balance?.toFixed(8)} BEL`}
+                  {`${currentAccount.balance?.toFixed(8)} ${COIN_SYMBOL}`}
                 </p>
                 <p>
                   {`${t("wallet_page.amount_in_inscriptions")}: `}
-                  {`${currentAccount.inscriptionBalance?.toFixed(8)} BEL`}
+                  {`${currentAccount.inscriptionBalance?.toFixed(8)} ${COIN_SYMBOL}`}
                 </p>
               </Popover.Panel>
             </Transition>

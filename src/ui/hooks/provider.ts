@@ -11,6 +11,7 @@ import {
 import { Psbt } from "belcoinjs-lib";
 import { useGetCurrentAccount } from "../states/walletState";
 import { toFixed } from "@/shared/utils/transactions";
+import { COIN_SYMBOL } from "@/shared/constant";
 
 export const useApproval = () => {
   const navigate = useNavigate();
@@ -97,7 +98,7 @@ export const useDecodePsbtInputs = () => {
         label: `Output #${i}`,
         value: {
           text: `${f.address}`,
-          value: `${toFixed(f.value / 10 ** 8)} BEL`,
+          value: `${toFixed(f.value / 10 ** 8)} ${COIN_SYMBOL}`,
         },
       });
     });
@@ -122,19 +123,23 @@ export const useDecodePsbtInputs = () => {
           value = {
             anyonecanpay: true,
             inscriptions: foundInscriptions,
-            value: `${toFixed(locationValue[outpoint] / 10 ** 8)} BEL`,
+            value: `${toFixed(
+              locationValue[outpoint] / 10 ** 8
+            )} ${COIN_SYMBOL}`,
           };
         } else {
           value = {
             anyonecanpay: true,
             text: `${outpoint.slice(0, -2)}`,
-            value: `${toFixed(locationValue[outpoint] / 10 ** 8)} BEL`,
+            value: `${toFixed(
+              locationValue[outpoint] / 10 ** 8
+            )} ${COIN_SYMBOL}`,
           };
         }
       } else {
         value = {
           text: `${outpoint.slice(0, -2)}`,
-          value: `${toFixed(locationValue[outpoint] / 10 ** 8)} BEL`,
+          value: `${toFixed(locationValue[outpoint] / 10 ** 8)} ${COIN_SYMBOL}`,
         };
       }
 

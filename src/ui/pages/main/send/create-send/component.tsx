@@ -23,6 +23,7 @@ import { normalizeAmount } from "@/ui/utils";
 import { t } from "i18next";
 import { Inscription } from "@/shared/interfaces/inscriptions";
 import Loading from "react-loading";
+import { COIN_SYMBOL } from "@/shared/constant";
 
 export interface FormType {
   address: string;
@@ -199,14 +200,14 @@ const CreateSend = () => {
                 <div className="flex justify-between p-0.5">
                   <div>{`${t("wallet_page.amount_in_transactions")}: `}</div>
                   <span className="text-sm font-medium">
-                    {`${currentAccount.balance?.toFixed(8) ?? "-"} BEL`}
+                    {`${currentAccount.balance?.toFixed(8) ?? "-"} ${COIN_SYMBOL}`}
                   </span>
                 </div>
                 <div className="flex justify-between p-0.5">
                   <div>{`${t("wallet_page.amount_in_inscriptions")}: `}</div>
                   <span className="text-sm font-medium">
                     {`${currentAccount.inscriptionBalance?.toFixed(8) ?? "-"
-                      } BEL`}
+                      } ${COIN_SYMBOL}`}
                   </span>
                 </div>
               </div>

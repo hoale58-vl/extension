@@ -2,18 +2,18 @@ import { KeyringServiceError } from "./consts";
 import type { Hex, Json, SendBEL, SendOrd, UserToSignInput } from "./types";
 import { storageService } from "@/background/services";
 import { Psbt } from "belcoinjs-lib";
-import { networks } from "belcoinjs-lib";
 import { getScriptForAddress } from "@/shared/utils/transactions";
 import {
   createMultisendOrd,
   createSendBEL,
   createSendOrd,
 } from "bel-ord-utils";
-import { SimpleKey, HDPrivateKey, AddressType, Keyring } from "bellhdw";
-import HDSimpleKey from "bellhdw/src/hd/simple";
+import { SimpleKey, HDPrivateKey, Keyring } from "./bellhdw";
 import { INewWalletProps } from "@/shared/interfaces";
 import { ApiOrdUTXO } from "@/shared/interfaces/inscriptions";
 import { ApiUTXO } from "bells-inscriber/lib/types";
+import { AddressType } from "@/shared/constant";
+import { getNetwork } from "@/shared/interfaces/networks";
 
 export const KEYRING_SDK_TYPES = {
   SimpleKey,
@@ -38,7 +38,7 @@ class KeyringService {
           addressType: i.data.addressType ?? i.addressType,
         });
       } else {
-        wallet = HDSimpleKey.deserialize(i.data) as any as HDSimpleKey;
+        wallet = SimpleKey.deserialize(i.data) as any as SimpleKey;
       }
       this.keyrings[i.id] = wallet;
     }
@@ -55,7 +55,7 @@ class KeyringService {
     hdPath,
     passphrase = undefined,
   }: INewWalletProps) {
-    let keyring: HDPrivateKey | HDSimpleKey;
+    let keyring: HDPrivateKey | SimpleKey;
     if (walletType === "root") {
       keyring = await HDPrivateKey.fromMnemonic({
         mnemonic: payload,
@@ -65,7 +65,7 @@ class KeyringService {
         passphrase,
       });
     } else {
-      keyring = HDSimpleKey.deserialize({
+      keyring = SimpleKey.deserialize({
         privateKey: payload,
         addressType,
         isHex: restoreFrom === "hex",
@@ -177,7 +177,7 @@ class KeyringService {
       toAddress: data.to,
       toAmount: data.amount,
       signTransaction: this.signPsbt.bind(this),
-      network: networks.bitcoin,
+      network: getNetwork(),
       changeAddress: account.address,
       receiverToPayFee: data.receiverToPayFee,
       pubkey: this.exportPublicKey(account.address),
@@ -226,7 +226,7 @@ class KeyringService {
         (i) => (i as ApiOrdUTXO & { isOrd: boolean }).isOrd
       )?.value,
       signTransaction: this.signPsbt.bind(this),
-      network: networks.bitcoin,
+      network: getNetwork(),
       changeAddress: account.address,
       pubkey: this.exportPublicKey(account.address),
       feeRate: data.feeRate,

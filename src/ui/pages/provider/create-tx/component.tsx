@@ -5,6 +5,7 @@ import { KeyIcon } from "@heroicons/react/24/solid";
 import Layout from "../layout";
 import type { CreateTxProps } from "@/shared/interfaces/notification";
 import { t } from "i18next";
+import { COIN_SYMBOL } from "@/shared/constant";
 
 const CreateTx = () => {
   const [psbt, setPsbt] = useState<CreateTxProps>();
@@ -30,7 +31,7 @@ const CreateTx = () => {
     },
     {
       label: "Amount",
-      value: `${psbt.amount} BEL`,
+      value: `${psbt.amount} ${COIN_SYMBOL}`,
     },
     {
       label: "Fee Rate",
