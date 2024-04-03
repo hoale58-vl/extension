@@ -11,7 +11,7 @@ import CopyBtn from "@/ui/components/copy-btn";
 import toast from "react-hot-toast";
 import SwitchAddressType from "@/ui/components/switch-address-type";
 import { t } from "i18next";
-import { AddressType } from "bellhdw";
+import { AddressType } from "@/shared/constant";
 import Switch from "@/ui/components/switch";
 
 const NewMnemonic = () => {

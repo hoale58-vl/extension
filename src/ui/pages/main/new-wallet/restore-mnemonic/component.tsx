@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import SwitchAddressType from "@/ui/components/switch-address-type";
 import SelectWithHint from "@/ui/components/select-hint/component";
 import { t } from "i18next";
-import { AddressType } from "bellhdw";
+import { AddressType } from "@/shared/constant";
 import Loading from "react-loading";
 import Switch from "@/ui/components/switch";
 

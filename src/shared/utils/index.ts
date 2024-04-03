@@ -1,4 +1,4 @@
-import { NINTONDO_API_URL } from "@/shared/constant";
+import { ESPLORA_API_URL } from "@/shared/constant";
 import browser from "./browser";
 
 export const t = (name: string) => browser.i18n.getMessage(name);
@@ -21,7 +21,7 @@ export const fetchBELLMainnet = async <T>({
   json = true,
   ...props
 }: fetchProps): Promise<T | undefined> => {
-  const url = `${NINTONDO_API_URL}${path}`;
+  const url = `${ESPLORA_API_URL}${path}`;
   const res = await fetch(url.toString(), { ...props });
 
   if (!json) return (await res.text()) as T;

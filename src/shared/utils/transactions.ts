@@ -1,7 +1,7 @@
 import type { ITransaction } from "@/shared/interfaces/api";
 import { payments } from "belcoinjs-lib";
 import Big from "big.js";
-import { AddressType } from "bellhdw/src/hd/types";
+import { AddressType } from "@/shared/constant";
 
 export enum TxDirection {
   out = 0,

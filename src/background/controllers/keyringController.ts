@@ -2,7 +2,7 @@ import { Psbt } from "belcoinjs-lib";
 import { keyringService } from "../services";
 import type { Hex, SendBEL, SendOrd } from "../services/keyring/types";
 import type { IPrivateWallet } from "@/shared/interfaces";
-import type { AddressType } from "bellhdw";
+import { AddressType } from "@/shared/constant";
 import { ApiOrdUTXO } from "@/shared/interfaces/inscriptions";
 import { ApiUTXO } from "bells-inscriber/lib/types";
 
