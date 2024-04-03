@@ -48,7 +48,7 @@ input[type="number"] {
 }
 
 .btn {
-  @apply px-7 py-2 text-sm rounded-xl font-medium cursor-pointer shadow-sm text-center;
+  @apply px-7 py-[12px] text-base rounded-lg font-normal cursor-pointer text-center;
 
   &:disabled {
     @apply cursor-not-allowed opacity-50;
@@ -56,7 +56,7 @@ input[type="number"] {
 }
 
 .primary {
-  @apply text-text border border-text transition-colors hover:bg-text hover:text-bg leading-tight;
+  @apply text-text hover:bg-[#A30F4D] transition-colors bg-primary leading-tight;
 }
 
 .secondary {
@@ -64,7 +64,7 @@ input[type="number"] {
 }
 
 .input {
-  @apply py-2 pl-5 pr-10 text-base text-text bg-input-bg rounded-xl standard:bg-bg;
+  @apply py-[12px] border border-text pl-5 pr-10 text-base text-text bg-transparent rounded-lg standard:bg-bg;
 }
 
 .react-loading {

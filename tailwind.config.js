@@ -15,17 +15,21 @@ module.exports = {
         38.1: "9.6875rem",
       },
       colors: {
-        bg: "#1A1A1A",
+        bg: "#120C18",
         "input-bg": "#3d3d3d95",
         "input-light": "#3d3d3d35",
         "toast-bg": "#3d3d3d",
-        text: "#FDFDFD",
+        text: "#FBFBFB",
         secondary: "#c1e1ea",
-        primary: "#ffbc42",
+        primary: "#E42575",
         panel: "#669bbc",
         hovered: "#a8d0db",
         "hovered-btn": "#fd9343",
-        "light-orange": "#ff863a"
+        "light-orange": "#ff863a",
+        "light-purple-2": "#2B2038",
+        "purple-4": "#998CA6",
+        "purple-3": "#40324E",
+        "dark-purple": "#1D1326"
       },
       screens: {
         "standard": "355px",
