@@ -159,7 +159,7 @@ const CreateSend = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-full h-full">
+    <div className="flex flex-col justify-between w-full h-full bg-bg">
       <form
         id={formId}
         className={cn("form", s.send)}
@@ -196,7 +196,7 @@ const CreateSend = () => {
                   </button>
                 </div>
               </div>
-              <div className="p-2 mt-2 text-center rounded-xl bg-input-light">
+              <div className="p-2 mt-2 text-center rounded-lg bg-dark-purple border border-purple-3">
                 <div className="flex justify-between p-0.5">
                   <div>{`${t("wallet_page.amount_in_transactions")}: `}</div>
                   <span className="text-sm font-medium">
