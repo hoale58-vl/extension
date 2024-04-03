@@ -1,5 +1,5 @@
 .card {
-  @apply cursor-pointer bg-input-bg h-28 rounded-xl hover:bg-text hover:text-bg transition-colors flex items-center justify-center flex-col gap-4 px-3;
+  @apply cursor-pointer border border-purple-3 rounded-lg bg-dark-purple h-28 hover:bg-purple-3 text-text transition-colors flex items-center justify-center flex-col gap-4 px-3;
 
   >div {
     @apply text-xs text-center font-medium;

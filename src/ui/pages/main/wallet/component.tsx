@@ -6,6 +6,7 @@ import { useTransactionManagerContext } from "@/ui/utils/tx-ctx";
 import TransactionList from "./transactions-list";
 import WalletPanel from "./wallet-panel";
 import AccountPanel from "./account-panel";
+import BottomPanel from "./bottom-panel";
 
 const Wallet = () => {
   const { trottledUpdate } = useTransactionManagerContext();
@@ -23,6 +24,7 @@ const Wallet = () => {
       <AccountPanel />
 
       <TransactionList />
+      <BottomPanel />
     </div>
   );
 };

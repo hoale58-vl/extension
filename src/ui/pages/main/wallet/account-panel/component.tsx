@@ -41,47 +41,81 @@ const AccountPanel = () => {
 
   return (
     <div className={s.accPanel}>
-      <Popover className="relative w-full flex">
+      <div className="flex gap-3 items-center">
+        <div>
+          <p>
+            {currentAccount.id === 0 &&
+            !currentWallet.hideRoot &&
+            currentWallet.type === "root"
+              ? "Root account"
+              : currentAccount.name}
+          </p>
+          <CopyBtn
+            title={currentAccount?.address}
+            className={s.accPubAddress}
+            label={shortAddress(currentAccount?.address, 9)}
+            value={currentAccount?.address}
+          />
+        </div>
+      </div>
+      <Popover className="relative w-full">
         {({ open }) => (
           <>
-            <div
-              className={s.balance}
-              onMouseEnter={() => handleEnter(open)}
-              onMouseLeave={() => handleLeave(open)}
-            >
-              <Popover.Button ref={triggerRef}></Popover.Button>
-              <div className="flex items-center justify-center">
-                {currentAccount?.balance === undefined ? (
-                  <Loading
-                    type="spin"
-                    color="#ffbc42"
-                    width={"2.5rem"}
-                    height={"2rem"}
-                    className="react-loading pr-2"
+            <div className="border border-purple-3 rounded-lg bg-dark-purple p-4 w-full flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="w-10 aspect-square rounded-full p-2 bg-light-purple-2">
+                  <img
+                    src="/icon.png"
+                    className="w-[24px] rounded-xl"
+                    alt="icon"
                   />
-                ) : (
-                  (currentAccount?.balance ?? 0).toFixed(
-                    currentAccount.balance?.toFixed(0).toString().length >= 4
-                      ? 8 -
-                          currentAccount.balance?.toFixed(0)?.toString()
-                            .length <
-                        0
-                        ? 0
-                        : 8 -
-                          currentAccount.balance?.toFixed(0)?.toString().length
-                      : 8
-                  )
-                )}
-                <span className="text-xl pb-0.5 text-slate-300">BEL</span>
+                </div>
+                <div className="grid gap-1">
+                  <p className="text-text text-base">Bells</p>
+                </div>
+              </div>
+              <div className="grid gap-1">
+                <p
+                  className="text-text text-base"
+                  style={{
+                    textAlign: "right",
+                  }}
+                >
+                  {currentAccount?.balance !== undefined ? (
+                    currentPrice !== undefined ? (
+                      <div className="text-gray-500 text-sm">
+                        ~${(currentAccount.balance * currentPrice)?.toFixed(3)}
+                      </div>
+                    ) : undefined
+                  ) : undefined}
+                </p>
+                <p className="text-[14px] leading-[18px] text-purple-4 text-right flex items-center">
+                  {currentAccount?.balance === undefined ? (
+                    <Loading
+                      type="spin"
+                      color="#ffbc42"
+                      width={"1rem"}
+                      height={"1rem"}
+                      className="react-loading pr-2"
+                    />
+                  ) : (
+                    (currentAccount?.balance ?? 0).toFixed(
+                      currentAccount.balance?.toFixed(0).toString().length >= 4
+                        ? 8 -
+                            currentAccount.balance?.toFixed(0)?.toString()
+                              .length <
+                          0
+                          ? 0
+                          : 8 -
+                            currentAccount.balance?.toFixed(0)?.toString()
+                              .length
+                        : 8
+                    )
+                  )}{" "}
+                  BEL
+                </p>
               </div>
             </div>
-            {currentAccount?.balance !== undefined ? (
-              currentPrice !== undefined ? (
-                <div className="text-gray-500 text-sm">
-                  ~{(currentAccount.balance * currentPrice)?.toFixed(3)}$
-                </div>
-              ) : undefined
-            ) : undefined}
             <Transition
               as={Fragment}
               enter="transition ease-out duration-200"
@@ -109,46 +143,6 @@ const AccountPanel = () => {
           </>
         )}
       </Popover>
-      <div className="flex gap-3 items-center">
-        {currentWallet?.type === "root" ? (
-          <Link to={"/pages/switch-account"}>
-            <ListBulletIcon
-              title={"Switch account"}
-              className={s.accountsIcon}
-            />
-          </Link>
-        ) : undefined}
-        <div>
-          <p>
-            {currentAccount.id === 0 &&
-            !currentWallet.hideRoot &&
-            currentWallet.type === "root"
-              ? "Root account"
-              : currentAccount.name}
-          </p>
-          <CopyBtn
-            title={currentAccount?.address}
-            className={s.accPubAddress}
-            label={shortAddress(currentAccount?.address, 9)}
-            value={currentAccount?.address}
-          />
-        </div>
-      </div>
-
-      <div className={cn(s.receiveSendBtns)}>
-        <Link
-          to={"/pages/receive"}
-          className={cn(s.btn, "w-full px-3 bg-text text-bg")}
-        >
-          {t("wallet_page.receive")}
-        </Link>
-        <Link
-          to={"/pages/create-send"}
-          className={cn(s.btn, "w-full px-3 hover:bg-text hover:text-bg")}
-        >
-          {t("wallet_page.send")}
-        </Link>
-      </div>
     </div>
   );
 };
