@@ -1,4 +1,4 @@
-import type { AddressType } from "bellhdw/src/hd/types";
+import { AddressType } from "@/shared/constant";
 import type { IAccount } from "./accounts";
 
 export interface IWallet {

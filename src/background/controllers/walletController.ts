@@ -9,7 +9,7 @@ import keyringService from "@/background/services/keyring";
 import { excludeKeysFromObj } from "@/shared/utils";
 import type { DecryptedSecrets } from "../services/storage/types";
 import * as bip39 from "bip39";
-import { AddressType } from "bellhdw";
+import { AddressType } from "@/shared/constant";
 
 class WalletController implements IWalletController {
   async isVaultEmpty() {

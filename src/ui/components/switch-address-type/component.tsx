@@ -2,7 +2,7 @@ import s from "./styles.module.scss";
 import { ADDRESS_TYPES } from "@/shared/constant";
 import { FC } from "react";
 import cn from "classnames";
-import { AddressType } from "bellhdw";
+import { AddressType } from "@/shared/constant";
 
 interface Props {
   handler: (type: AddressType) => void;

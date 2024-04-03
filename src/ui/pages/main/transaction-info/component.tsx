@@ -11,7 +11,7 @@ import cn from "classnames";
 import { shortAddress } from "@/shared/utils/transactions";
 import toast from "react-hot-toast";
 import { t } from "i18next";
-import { BELLS_API_URL } from "@/shared/constant";
+import { EXPLORER_API_URL } from "@/shared/constant";
 
 const TransactionInfo = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const TransactionInfo = () => {
 
   const onOpenExplorer = async () => {
     await browserTabsCreate({
-      url: `${BELLS_API_URL}/tx/${transaction.txid}`,
+      url: `${EXPLORER_API_URL}/tx/${transaction.txid}`,
       active: true,
     });
   };

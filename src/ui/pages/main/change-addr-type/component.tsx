@@ -10,7 +10,7 @@ import {
   useUpdateCurrentWallet,
 } from "@/ui/hooks/wallet";
 import { useCallback } from "react";
-import { AddressType } from "bellhdw";
+import { AddressType } from "@/shared/constant";
 
 const ChangeAddrType = () => {
   const { keyringController, notificationController } = useControllersState(

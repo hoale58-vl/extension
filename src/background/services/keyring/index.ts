@@ -9,9 +9,8 @@ import {
   createSendBEL,
   createSendOrd,
 } from "bel-ord-utils";
-import { SimpleKey, HDPrivateKey, AddressType } from "bellhdw";
+import { SimpleKey, HDPrivateKey, AddressType, Keyring } from "bellhdw";
 import HDSimpleKey from "bellhdw/src/hd/simple";
-import type { Keyring } from "bellhdw/src/hd/types";
 import { INewWalletProps } from "@/shared/interfaces";
 import { ApiOrdUTXO } from "@/shared/interfaces/inscriptions";
 import { ApiUTXO } from "bells-inscriber/lib/types";
