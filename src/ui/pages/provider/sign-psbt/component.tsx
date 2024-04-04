@@ -38,12 +38,12 @@ const SignPsbt = () => {
   return (
     <Layout
       documentTitle={t("provider.sign_tx")}
-      resolveBtnClassName="bg-text text-bg hover:bg-orange-500 hover:text-bg"
+      resolveBtnClassName="text-text bg-primary hover:bg-[#A30F4D]"
       resolveBtnText={t("provider.sign")}
     >
       <div className="flex flex-col overflow-y-scroll max-h-[420px] standard:max-h-full standard:overflow-hidden items-center gap-3 p-3 text-sm">
         <div className="flex items-center justify-center gap-3 mb-3">
-          <KeyIcon className="w-8 h-8 text-orange-500" />
+          <KeyIcon className="w-8 h-8 text-primary" />
           <h4 className="text-xl font-medium">{t("provider.sign_tx")}</h4>
         </div>
         <div className="flex flex-col gap-4 w-full">

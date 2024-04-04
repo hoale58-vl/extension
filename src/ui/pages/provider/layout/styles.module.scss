@@ -15,7 +15,7 @@
 }
 
 .reject {
-  @apply bg-bg border border-text hover:bg-red-500 hover:border-red-500;
+  @apply bg-transparent text-text border border-primary hover:bg-primary hover:border-primary;
 }
 
 .origin {
