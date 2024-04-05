@@ -1,5 +1,6 @@
 import type { ITransaction } from "@/shared/interfaces/api";
 import { payments } from "belcoinjs-lib";
+import { payments as bitcoinPayments } from "bitcoinjs-lib";
 import Big from "big.js";
 import { AddressType } from "@/shared/constant";
 import { getNetwork } from "@/shared/interfaces/networks";
@@ -97,6 +98,11 @@ export const getScriptForAddress = (
       }).output;
     case AddressType.P2PKH as any:
       return payments.p2pkh({
+        pubkey: Buffer.from(publicKey),
+        network: getNetwork(),
+      }).output;
+    case AddressType.P2TR:
+      return bitcoinPayments.p2tr({
         pubkey: Buffer.from(publicKey),
         network: getNetwork(),
       }).output;

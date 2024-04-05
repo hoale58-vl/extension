@@ -19,6 +19,9 @@ export const IS_LINUX = /linux/i.test(navigator.userAgent);
 
 export const IS_WINDOWS = /windows/i.test(navigator.userAgent);
 
+export const COIN_NAME = process.env.COIN_NAME ?? "BELL";
+export const COIN_SYMBOL = process.env.COIN_SYMBOL ?? "BEL";
+
 export const ADDRESS_TYPES: {
   value: AddressType;
   label: string;
@@ -29,19 +32,25 @@ export const ADDRESS_TYPES: {
     value: AddressType.P2WPKH,
     label: "P2WPKH",
     name: "Native Segwit (P2WPKH)",
-    hdPath: "m/84'/0'/0'/0",
+    hdPath: `m/84'/${COIN_SYMBOL === "tBTC" ? "1" : "0"}'/0'/0`,
   },
   {
     value: AddressType.P2SH_P2WPKH,
     label: "P2SH-P2WPKH",
     name: "Nested Segwit (P2SH-P2WPKH)",
-    hdPath: "m/49'/0'/0'/0",
+    hdPath: `m/49'/${COIN_SYMBOL === "tBTC" ? "1" : "0"}'/0'/0`,
   },
   {
     value: AddressType.P2PKH,
     label: "P2PKH",
     name: "Legacy (P2PKH)",
-    hdPath: "m/44'/0'/0'/0",
+    hdPath: `m/44'/${COIN_SYMBOL === "tBTC" ? "1" : "0"}'/0'/0`,
+  },
+  {
+    value: AddressType.P2TR,
+    label: "P2TR",
+    name: "Taproot (P2TR)",
+    hdPath: `m/86'/${COIN_SYMBOL === "tBTC" ? "1" : "0"}'/0'/0`,
   },
 ];
 
@@ -55,9 +64,6 @@ export const EVENTS = {
     INITED: "WALLETCONNECT_INITED",
   },
 };
-
-export const COIN_NAME = process.env.COIN_NAME ?? "BELL";
-export const COIN_SYMBOL = process.env.COIN_SYMBOL ?? "BEL";
 
 export const SATS_DOMAIN = ".sats";
 

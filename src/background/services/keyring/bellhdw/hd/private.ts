@@ -19,6 +19,8 @@ import ECPairFactory, { ECPairInterface } from "belpair";
 import { Psbt } from "belcoinjs-lib";
 import HDKey from "browser-hdkey";
 import { sha256 } from "@noble/hashes/sha256";
+import * as bitcoinMessage from "bitcoinjs-message";
+import { getNetwork } from "@/shared/interfaces/networks";
 
 const ECPair = ECPairFactory(tinysecp);
 
@@ -169,8 +171,13 @@ class HDPrivateKey extends BaseWallet implements Keyring<SerializedHDKey> {
 
   signMessage(address: Hex, text: string) {
     const account = this.findAccount(address);
-    const hash = sha256(text);
-    return account.sign(Buffer.from(hash)).toString("base64");
+    const network = getNetwork();
+
+    // P2PKH Legacy - ECDSA signature
+    return bitcoinMessage
+      .sign(text, account.privateKey, account.compressed, network.messagePrefix)
+      .toString("base64");
+    // TODO: Segwit Accounts
   }
 
   signPersonalMessage(address: Hex, message: Hex) {

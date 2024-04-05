@@ -1,4 +1,5 @@
 import { payments } from "belcoinjs-lib";
+import { payments as bitcoinPayments } from "bitcoinjs-lib";
 import { AddressType } from "./types";
 import { getNetwork } from "@/shared/interfaces/networks";
 
@@ -23,6 +24,11 @@ export class BaseWallet {
         }).address;
       case AddressType.P2PKH as any:
         return payments.p2pkh({
+          pubkey: Buffer.from(publicKey),
+          network: getNetwork(),
+        }).address;
+      case AddressType.P2TR as any:
+        return bitcoinPayments.p2tr({
           pubkey: Buffer.from(publicKey),
           network: getNetwork(),
         }).address;
