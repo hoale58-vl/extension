@@ -42,11 +42,11 @@ const CreateTx = () => {
   return (
     <Layout
       documentTitle={t("provider.create_transaction")}
-      resolveBtnClassName="bg-text text-bg hover:bg-green-500 hover:text-bg"
+      resolveBtnClassName="text-text bg-primary hover:bg-[#A30F4D]"
       resolveBtnText={t("components.layout.send")}
     >
       <>
-        <KeyIcon className="w-10 h-10 text-orange-500" />
+        <KeyIcon className="w-10 h-10 text-primary" />
         <h4 className="text-xl font-medium mb-6">{t("provider.send_bells")}</h4>
         <div className="flex flex-col gap-4 w-full">
           {fields.map((i) => (
