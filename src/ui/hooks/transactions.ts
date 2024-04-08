@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useGetCurrentAccount, useWalletState } from "../states/walletState";
 import { useControllersState } from "../states/controllerState";
 import { tidoshisToAmount } from "@/shared/utils/transactions";
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import type { Hex } from "@/background/services/keyring/types";
 import { t } from "i18next";
 import { Inscription } from "@/shared/interfaces/inscriptions";

@@ -4,9 +4,7 @@ import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
 import { BaseWallet } from "./base";
 import * as tinysecp from "bells-secp256k1";
 import ECPairFactory, { ECPairInterface } from "belpair";
-import { Psbt } from "belcoinjs-lib";
-import { getNetwork } from "@/shared/interfaces/networks";
-import { encodeSignature, magicHashMessage } from "./utils";
+import { Psbt } from "bitcoinjs-lib";
 import { signBip322 } from "./bip322";
 
 const ECPair = ECPairFactory(tinysecp);

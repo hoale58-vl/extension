@@ -1,4 +1,4 @@
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import { keyringService, sessionService, storageService } from "../../services";
 import "reflect-metadata/lite";
 import type { AccountBalanceResponse, ApiUTXO } from "@/shared/interfaces/api";

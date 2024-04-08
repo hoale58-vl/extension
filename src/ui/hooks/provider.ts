@@ -8,7 +8,7 @@ import {
   LocationValue,
   SignPsbtOptions,
 } from "@/shared/interfaces/provider";
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import { useGetCurrentAccount } from "../states/walletState";
 import { toFixed } from "@/shared/utils/transactions";
 import { COIN_SYMBOL } from "@/shared/constant";

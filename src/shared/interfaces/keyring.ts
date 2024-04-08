@@ -1,4 +1,4 @@
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import type { ECPairInterface } from "belpair";
 
 interface DeserializeOption {

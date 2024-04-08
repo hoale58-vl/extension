@@ -16,7 +16,7 @@ import { BaseWallet } from "./base";
 import * as tinysecp from "bells-secp256k1";
 import { mnemonicToSeed } from "bip39";
 import ECPairFactory, { ECPairInterface } from "belpair";
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import HDKey from "browser-hdkey";
 import { sha256 } from "@noble/hashes/sha256";
 import { getNetwork } from "@/shared/interfaces/networks";

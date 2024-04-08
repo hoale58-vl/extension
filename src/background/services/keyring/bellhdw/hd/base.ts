@@ -1,10 +1,10 @@
-import { payments } from "belcoinjs-lib";
+import { payments } from "bitcoinjs-lib";
 import { payments as bitcoinPayments } from "bitcoinjs-lib";
 import { AddressType } from "./types";
 import { getNetwork } from "@/shared/interfaces/networks";
-import { toXOnly } from "bel-ord-utils/lib/OrdTransaction";
 import * as bitcoinjs from "bitcoinjs-lib";
 import * as ecc from "bells-secp256k1";
+import { toXOnly } from "./utils";
 
 export class BaseWallet {
   addressType?: AddressType;

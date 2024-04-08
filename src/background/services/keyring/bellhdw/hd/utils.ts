@@ -25,3 +25,6 @@ export function encodeSignature(
   if (compressed) recovery += 4;
   return Buffer.concat([Buffer.alloc(1, recovery + 27), signature]);
 }
+
+export const toXOnly = (pubKey: Buffer) =>
+  pubKey.length === 32 ? pubKey : pubKey.slice(1, 33);

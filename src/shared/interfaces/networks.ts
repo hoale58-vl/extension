@@ -1,4 +1,5 @@
-import { Network, networks } from "belcoinjs-lib";
+import { networks } from "belcoinjs-lib";
+import { Network } from "bitcoinjs-lib";
 import { COIN_SYMBOL } from "../constant";
 
 export const bitcoin: Network = {

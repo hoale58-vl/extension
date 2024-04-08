@@ -1,4 +1,4 @@
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 
 export type Base58String = string;
 

@@ -1,19 +1,15 @@
 import { KeyringServiceError } from "./consts";
 import type { Hex, Json, SendBEL, SendOrd, UserToSignInput } from "./types";
 import { storageService } from "@/background/services";
-import { Psbt } from "belcoinjs-lib";
+import { Psbt } from "bitcoinjs-lib";
 import { getScriptForAddress } from "@/shared/utils/transactions";
-import {
-  createMultisendOrd,
-  createSendBEL,
-  createSendOrd,
-} from "bel-ord-utils";
 import { SimpleKey, HDPrivateKey, Keyring } from "./bellhdw";
 import { INewWalletProps } from "@/shared/interfaces";
 import { ApiOrdUTXO } from "@/shared/interfaces/inscriptions";
 import { ApiUTXO } from "bells-inscriber/lib/types";
 import { AddressType } from "@/shared/constant";
 import { getNetwork } from "@/shared/interfaces/networks";
+import { createMultisendOrd, createSendBtc, createSendOrd } from "./ord-utils";
 
 export const KEYRING_SDK_TYPES = {
   SimpleKey,
@@ -159,7 +155,7 @@ class KeyringService {
 
     const publicKey = this.exportPublicKey(account.address);
 
-    const psbt = await createSendBEL({
+    const psbt = await createSendBtc({
       utxos: data.utxos.map((v) => {
         return {
           txId: v.txid,
