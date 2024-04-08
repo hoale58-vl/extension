@@ -2,6 +2,9 @@ import { payments } from "belcoinjs-lib";
 import { payments as bitcoinPayments } from "bitcoinjs-lib";
 import { AddressType } from "./types";
 import { getNetwork } from "@/shared/interfaces/networks";
+import { toXOnly } from "bel-ord-utils/lib/OrdTransaction";
+import * as bitcoinjs from "bitcoinjs-lib";
+import * as ecc from "bells-secp256k1";
 
 export class BaseWallet {
   addressType?: AddressType;
@@ -28,8 +31,9 @@ export class BaseWallet {
           network: getNetwork(),
         }).address;
       case AddressType.P2TR as any:
+        bitcoinjs.initEccLib(ecc);
         return bitcoinPayments.p2tr({
-          pubkey: Buffer.from(publicKey),
+          pubkey: toXOnly(Buffer.from(publicKey)),
           network: getNetwork(),
         }).address;
       default:

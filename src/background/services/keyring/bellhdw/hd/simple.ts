@@ -7,6 +7,7 @@ import ECPairFactory, { ECPairInterface } from "belpair";
 import { Psbt } from "belcoinjs-lib";
 import { getNetwork } from "@/shared/interfaces/networks";
 import { encodeSignature, magicHashMessage } from "./utils";
+import { signBip322 } from "./bip322";
 
 const ECPair = ECPairFactory(tinysecp);
 
@@ -152,26 +153,9 @@ class HDSimpleKey extends BaseWallet implements Keyring<SerializedSimpleKey> {
     }));
   }
 
-  signMessage(_address: string, message: string) {
+  signMessage(address: string, text: string) {
     this.initPair();
-
-    const network = getNetwork();
-
-    // Legacy sign messsage
-    const encodedMsg = magicHashMessage(network.messagePrefix, message);
-    const { signature, recoveryId } = tinysecp.signRecoverable(
-      encodedMsg,
-      this.pair.privateKey
-    );
-    const encodedSig = encodeSignature(
-      Buffer.from(signature),
-      recoveryId,
-      this.pair.compressed
-    );
-
-    return encodedSig.toString("base64");
-
-    // TODO: BIP322
+    return signBip322(address, text, this.pair);
   }
 
   signPersonalMessage(address: string, message: string) {

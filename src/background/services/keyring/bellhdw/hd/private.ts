@@ -21,6 +21,8 @@ import HDKey from "browser-hdkey";
 import { sha256 } from "@noble/hashes/sha256";
 import { getNetwork } from "@/shared/interfaces/networks";
 import { encodeSignature, magicHashMessage } from "./utils";
+import Address from "./address";
+import { signBip322 } from "./bip322";
 
 const ECPair = ECPairFactory(tinysecp);
 
@@ -171,23 +173,7 @@ class HDPrivateKey extends BaseWallet implements Keyring<SerializedHDKey> {
 
   signMessage(address: Hex, text: string) {
     const account = this.findAccount(address);
-    const network = getNetwork();
-
-    // Legacy sign messsage
-    const encodedMsg = magicHashMessage(network.messagePrefix, text);
-    const { signature, recoveryId } = tinysecp.signRecoverable(
-      encodedMsg,
-      account.privateKey
-    );
-    const encodedSig = encodeSignature(
-      Buffer.from(signature),
-      recoveryId,
-      account.compressed
-    );
-
-    return encodedSig.toString("base64");
-
-    // TODO: BIP322
+    return signBip322(address, text, account);
   }
 
   signPersonalMessage(address: Hex, message: Hex) {

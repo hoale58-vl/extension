@@ -22,7 +22,7 @@ export const IS_WINDOWS = /windows/i.test(navigator.userAgent);
 export const COIN_NAME = process.env.COIN_NAME ?? "BELL";
 export const COIN_SYMBOL = process.env.COIN_SYMBOL ?? "BEL";
 
-export const ADDRESS_TYPES: {
+export const ALL_ADDRESS_TYPES: {
   value: AddressType;
   label: string;
   name: string;
@@ -53,6 +53,9 @@ export const ADDRESS_TYPES: {
     hdPath: `m/86'/${COIN_SYMBOL === "tBTC" ? "1" : "0"}'/0'/0`,
   },
 ];
+
+export const ADDRESS_TYPES =
+  COIN_SYMBOL === "BEL" ? ALL_ADDRESS_TYPES.slice(2, 3) : ALL_ADDRESS_TYPES;
 
 export const EVENTS = {
   broadcastToUI: "broadcastToUI",

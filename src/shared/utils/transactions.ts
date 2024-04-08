@@ -4,6 +4,9 @@ import { payments as bitcoinPayments } from "bitcoinjs-lib";
 import Big from "big.js";
 import { AddressType } from "@/shared/constant";
 import { getNetwork } from "@/shared/interfaces/networks";
+import { toXOnly } from "bel-ord-utils/lib/OrdTransaction";
+import * as bitcoinjs from "bitcoinjs-lib";
+import * as ecc from "bells-secp256k1";
 
 export enum TxDirection {
   out = 0,
@@ -102,8 +105,9 @@ export const getScriptForAddress = (
         network: getNetwork(),
       }).output;
     case AddressType.P2TR:
+      bitcoinjs.initEccLib(ecc);
       return bitcoinPayments.p2tr({
-        pubkey: Buffer.from(publicKey),
+        pubkey: toXOnly(Buffer.from(publicKey)),
         network: getNetwork(),
       }).output;
     default:
