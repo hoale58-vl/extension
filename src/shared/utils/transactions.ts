@@ -107,7 +107,7 @@ export const getScriptForAddress = (
     case AddressType.P2TR:
       bitcoinjs.initEccLib(ecc);
       return bitcoinPayments.p2tr({
-        pubkey: toXOnly(Buffer.from(publicKey)),
+        internalPubkey: toXOnly(Buffer.from(publicKey)),
         network: getNetwork(),
       }).output;
     default:

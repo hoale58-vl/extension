@@ -21,10 +21,15 @@ const SignPsbt = () => {
 
   const updateFields = useCallback(async () => {
     if (fields.length <= 0) setLoading(true);
-    const resultFields = await getPsbtFields();
-    if (resultFields === undefined) return;
-    setFields(resultFields);
-    setLoading(false);
+    try {
+      const resultFields = await getPsbtFields();
+      if (resultFields === undefined) return;
+      setFields(resultFields);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
   }, [getPsbtFields, fields]);
 
   useEffect(() => {

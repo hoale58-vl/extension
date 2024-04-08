@@ -16,13 +16,11 @@ import { BaseWallet } from "./base";
 import * as tinysecp from "bells-secp256k1";
 import { mnemonicToSeed } from "bip39";
 import ECPairFactory, { ECPairInterface } from "belpair";
-import { Psbt } from "bitcoinjs-lib";
+import { Psbt, crypto } from "bitcoinjs-lib";
 import HDKey from "browser-hdkey";
 import { sha256 } from "@noble/hashes/sha256";
-import { getNetwork } from "@/shared/interfaces/networks";
-import { encodeSignature, magicHashMessage } from "./utils";
-import Address from "./address";
 import { signBip322 } from "./bip322";
+import { isTaprootInput, toXOnly } from "./utils";
 
 const ECPair = ECPairFactory(tinysecp);
 
@@ -127,9 +125,20 @@ class HDPrivateKey extends BaseWallet implements Keyring<SerializedHDKey> {
   signPsbt(psbt: Psbt, inputs: ToSignInput[]) {
     let account: ECPairInterface | undefined;
 
-    inputs.map((i) => {
+    inputs.map((i, index) => {
       account = this.findAccountByPk(i.publicKey);
-      psbt.signInput(i.index, account, i.sighashTypes);
+
+      // add internal key as account pubkey for taproot input
+      const psbtInput = psbt.data.inputs[index];
+      if (isTaprootInput(psbtInput)) {
+        psbt.data.inputs[i.index].tapInternalKey = toXOnly(account.publicKey);
+        const tweakedSigner = account.tweak(
+          crypto.taggedHash("TapTweak", toXOnly(account.publicKey))
+        );
+        psbt.signTaprootInput(i.index, tweakedSigner);
+      } else {
+        psbt.signInput(i.index, account!, i.sighashTypes);
+      }
     });
 
     psbt.finalizeAllInputs();
@@ -160,9 +169,20 @@ class HDPrivateKey extends BaseWallet implements Keyring<SerializedHDKey> {
   }[] {
     let account: ECPairInterface | undefined;
 
-    inputs.map((i) => {
+    inputs.map((i, index) => {
       account = this.findAccountByPk(i.publicKey);
-      psbt.signInput(i.index, account, i.sighashTypes);
+
+      // add internal key as account pubkey for taproot input
+      const psbtInput = psbt.data.inputs[index];
+      if (isTaprootInput(psbtInput)) {
+        psbt.data.inputs[i.index].tapInternalKey = toXOnly(account.publicKey);
+        const tweakedSigner = account.tweak(
+          crypto.taggedHash("TapTweak", toXOnly(account.publicKey))
+        );
+        psbt.signTaprootInput(i.index, tweakedSigner);
+      } else {
+        psbt.signInput(i.index, account!, i.sighashTypes);
+      }
     });
 
     return psbt.data.inputs.map((f, i) => ({

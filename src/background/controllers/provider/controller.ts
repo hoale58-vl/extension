@@ -156,6 +156,10 @@ class ProviderController {
       psbt,
       data.data.params.options?.toSignInputs
     );
+
+    for (const index of data.data.params.options?.toSignInputs.keys()) {
+      psbt.finalizeInput(index);
+    }
     return psbt.toBase64();
   };
 }

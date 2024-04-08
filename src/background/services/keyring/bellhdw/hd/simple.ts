@@ -4,8 +4,9 @@ import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
 import { BaseWallet } from "./base";
 import * as tinysecp from "bells-secp256k1";
 import ECPairFactory, { ECPairInterface } from "belpair";
-import { Psbt } from "bitcoinjs-lib";
+import { Psbt, crypto } from "bitcoinjs-lib";
 import { signBip322 } from "./bip322";
+import { isP2TR, isTaprootInput, toXOnly } from "./utils";
 
 const ECPair = ECPairFactory(tinysecp);
 
@@ -105,7 +106,17 @@ class HDSimpleKey extends BaseWallet implements Keyring<SerializedSimpleKey> {
     this.initPair();
 
     for (let i of inputs) {
-      psbt.signInput(i.index, this.pair!, i.sighashTypes);
+      // add internal key as account pubkey for taproot input
+      const psbtInput = psbt.data.inputs[i.index];
+      if (isTaprootInput(psbtInput)) {
+        psbt.data.inputs[i.index].tapInternalKey = toXOnly(this.pair.publicKey);
+        const tweakedSigner = this.pair.tweak(
+          crypto.taggedHash("TapTweak", toXOnly(this.pair.publicKey))
+        );
+        psbt.signTaprootInput(i.index, tweakedSigner);
+      } else {
+        psbt.signInput(i.index, this.pair!, i.sighashTypes);
+      }
     }
     psbt.finalizeAllInputs();
   }
@@ -143,7 +154,17 @@ class HDSimpleKey extends BaseWallet implements Keyring<SerializedSimpleKey> {
     if (this.pair === undefined)
       throw new Error("Cannot sign inputs since pair is undefined");
     for (let i of inputs) {
-      psbt.signInput(i.index, this.pair!, i.sighashTypes);
+      // add internal key as account pubkey for taproot input
+      const psbtInput = psbt.data.inputs[i.index];
+      if (isTaprootInput(psbtInput)) {
+        psbt.data.inputs[i.index].tapInternalKey = toXOnly(this.pair.publicKey);
+        const tweakedSigner = this.pair.tweak(
+          crypto.taggedHash("TapTweak", toXOnly(this.pair.publicKey))
+        );
+        psbt.signTaprootInput(i.index, tweakedSigner);
+      } else {
+        psbt.signInput(i.index, this.pair!, i.sighashTypes);
+      }
     }
     return psbt.data.inputs.map((f, i) => ({
       inputIndex: i,
